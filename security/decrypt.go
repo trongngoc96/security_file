@@ -58,6 +58,9 @@ func Decrypt(arrFile []string, keystring string, findkey string) []DataFile {
 			indexValueByFindKey = strings.Index(removeBeforeFindKey, ",")
 			if indexValueByFindKey == -1 {
 				indexValueByFindKey = strings.Index(removeBeforeFindKey, "}")
+				if indexValueByFindKey == -1 {
+					indexValueByFindKey = strings.Index(removeBeforeFindKey, "]")
+				}
 			}
 			valueByFindKey := removeBeforeFindKey[:indexValueByFindKey]
 			dataFile.PATH = arrFile[i]
