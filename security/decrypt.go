@@ -15,6 +15,7 @@ type DataFile struct {
 }
 
 func Decrypt(arrFile []string, keystring string, findkey string) []DataFile {
+	var indexValueByFindKey int
 	var arrDataValue []DataFile
 	var dataFile DataFile
 	for i := 0; i < len(arrFile); i++ {
@@ -54,7 +55,10 @@ func Decrypt(arrFile []string, keystring string, findkey string) []DataFile {
 			removeLine := strings.ReplaceAll(removeDistance, "\n", "")
 			indexFindKey := strings.Index(removeLine, findkey)
 			removeBeforeFindKey := removeLine[indexFindKey+len(findkey)+1 : len(removeLine)-1]
-			indexValueByFindKey := strings.Index(removeBeforeFindKey, ",")
+			indexValueByFindKey = strings.Index(removeBeforeFindKey, ",")
+			if indexValueByFindKey == -1 {
+				indexValueByFindKey = strings.Index(removeBeforeFindKey, "}")
+			}
 			valueByFindKey := removeBeforeFindKey[:indexValueByFindKey]
 			dataFile.PATH = arrFile[i]
 			dataFile.KEY = findkey
